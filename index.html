@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guanuby ∞ </title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600&family=Space+Grotesk:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #05060e;
+        --emerald: #5ef296;
+        --copper: #f7b267;
+        --void: rgba(4, 6, 12, 0.85);
+        --card: rgba(10, 14, 23, 0.85);
+        --outline: rgba(255, 255, 255, 0.15);
+        --mc-font: 'Chakra Petch', sans-serif;
+        --body-font: 'Space Grotesk', sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: var(--body-font);
+        color: #f5f5f5;
+        background: #0a0604;
+        min-height: 100vh;
+        line-height: 1.6;
+        scroll-snap-type: y proximity;
+        scroll-behavior: smooth;
+        overflow-y: auto;
+      }
+
+      .snap {
+        min-height: 100vh;
+        scroll-snap-align: start;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .gallery-section {
+        scroll-snap-align: none;
+      }
+
+      header {
+        display: none;
+      }
+
+      nav {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 1.5rem;
+      }
+
+      nav .brand {
+        font-family: var(--mc-font);
+        letter-spacing: 2px;
+        font-size: 1.1rem;
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 1rem;
+        font-size: 0.95rem;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: #cfd4ff;
+        transition: color 0.2s ease;
+      }
+
+      nav a:hover {
+        color: var(--emerald);
+      }
+
+      .hero {
+        position: relative;
+        isolation: isolate;
+        text-align: center;
+        padding: 4rem 1.5rem;
+        overflow: hidden;
+        max-width: none;
+        width: 100%;
+        margin: 0;
+        background: 
+          radial-gradient(ellipse 800px 600px at 50% 60%, 
+            rgba(255, 140, 50, 0.4) 0%, 
+            rgba(255, 90, 30, 0.3) 20%,
+            rgba(200, 60, 20, 0.2) 40%,
+            transparent 60%
+          ),
+          radial-gradient(circle at 20% 20%, rgba(110, 87, 240, 0.15), transparent 45%),
+          radial-gradient(circle at 80% 30%, rgba(94, 242, 150, 0.2), transparent 50%),
+          #1a0f0a;
+      }
+
+      .hero::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: 
+          radial-gradient(ellipse 600px 400px at 50% 70%, 
+            rgba(255, 180, 80, 0.6) 0%,
+            rgba(255, 120, 50, 0.4) 15%,
+            rgba(220, 80, 30, 0.25) 35%,
+            transparent 55%
+          );
+        opacity: 0.8;
+        animation: campfireGlow 4s ease-in-out infinite;
+        z-index: -1;
+      }
+
+      .hero::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 400px;
+        height: 400px;
+        background: 
+          radial-gradient(ellipse 300px 200px, 
+            rgba(255, 200, 100, 0.3) 0%,
+            rgba(255, 140, 60, 0.2) 30%,
+            transparent 60%
+          );
+        filter: blur(40px);
+        animation: flicker 2.5s ease-in-out infinite;
+        z-index: -1;
+      }
+
+      @keyframes campfireGlow {
+        0%, 100% {
+          opacity: 0.7;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.9;
+          transform: scale(1.05);
+        }
+      }
+
+      @keyframes flicker {
+        0%, 100% {
+          opacity: 0.6;
+          filter: blur(40px);
+        }
+        25% {
+          opacity: 0.8;
+          filter: blur(35px);
+        }
+        50% {
+          opacity: 0.5;
+          filter: blur(45px);
+        }
+        75% {
+          opacity: 0.75;
+          filter: blur(38px);
+        }
+      }
+
+      .hero-inner {
+        max-width: 960px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+      }
+
+      .hero-title {
+        font-family: var(--mc-font);
+        font-size: clamp(4rem, 14vw, 9rem);
+        letter-spacing: 12px;
+        text-transform: uppercase;
+        color: #ffffff;
+        text-shadow: 0 4px 20px rgba(255, 140, 60, 0.5),
+                     0 0 40px rgba(255, 100, 40, 0.3);
+      }
+
+      .hero-subtitle {
+        font-size: 1.2rem;
+        color: #ffc998;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+      }
+
+      .hero-description {
+        color: #e8d8c8;
+        max-width: 760px;
+        margin: 0 auto;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+      }
+
+      .cta-group {
+        margin-top: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      .cta {
+        border: 1px solid var(--emerald);
+        color: var(--emerald);
+        padding: 0.85rem 1.8rem;
+        border-radius: 999px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        background: transparent;
+        transition: transform 0.2s ease, background 0.2s ease;
+      }
+
+      .cta.primary {
+        background: var(--emerald);
+        color: #07130a;
+      }
+
+      .cta:hover {
+        transform: translateY(-2px);
+        background: rgba(94, 242, 150, 0.1);
+      }
+
+      section {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 4rem 1.5rem;
+      }
+
+      .section-title {
+        font-family: var(--mc-font);
+      }
+
+      .timeline {
+        display: grid;
+        gap: 1.5rem;
+      }
+
+      .timeline-card {
+        border: 1px solid var(--outline);
+        padding: 1.5rem;
+        border-radius: 1.2rem;
+        background: var(--card);
+        display: grid;
+        gap: 0.5rem;
+      }
+
+      .timeline-card h3 {
+        color: var(--copper);
+      }
+
+      .timeline-card span {
+        font-size: 0.85rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: #9ea6d5;
+      }
+
+      .worlds {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .world-card {
+        position: relative;
+        border-radius: 1rem;
+        overflow: hidden;
+        min-height: 340px;
+        border: 1px solid var(--outline);
+        background: var(--void);
+        isolation: isolate;
+      }
+
+      .world-card img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.45;
+        filter: saturate(1.1);
+        z-index: -1;
+      }
+
+      .world-card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, transparent, rgba(5, 6, 14, 0.95));
+        z-index: -1;
+      }
+
+      .world-card .content {
+        position: absolute;
+        inset: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        gap: 0.75rem;
+      }
+
+      .world-card h3 {
+        font-family: var(--mc-font);
+      }
+
+      .world-card ul {
+        list-style: none;
+        font-size: 0.9rem;
+        color: #d0d0eb;
+      }
+
+      .split {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0.3rem 0.75rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 200, 150, 0.3);
+        background: rgba(60, 30, 10, 0.5);
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #ffb380;
+      }
+
+      .scoreboard {
+        border-radius: 1.2rem;
+        border: 1px solid var(--outline);
+        background: var(--card);
+        padding: 1.5rem;
+      }
+
+      .score-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.8rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .score-row:last-child {
+        border-bottom: none;
+      }
+
+      .score-row strong {
+        color: var(--emerald);
+      }
+
+      .games-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+      }
+
+      .game-chip {
+        border: 1px solid var(--outline);
+        border-radius: 0.8rem;
+        padding: 1rem;
+        background: rgba(7, 7, 12, 0.65);
+      }
+
+      .gallery-section {
+        min-height: 100vh;
+        background: linear-gradient(180deg, #0a0604 0%, #1a1410 100%);
+        padding: 4rem 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .gallery-grid {
+        max-width: 1200px;
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+
+      .game-card {
+        position: relative;
+        border-radius: 1.2rem;
+        overflow: hidden;
+        border: 2px solid rgba(255, 200, 150, 0.2);
+        background: rgba(20, 10, 5, 0.6);
+        transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+        min-height: 350px;
+      }
+
+      .game-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(255, 140, 60, 0.6);
+        box-shadow: 0 15px 40px rgba(255, 100, 40, 0.3);
+      }
+
+      .game-card img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        display: block;
+      }
+
+      .game-card-content {
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .game-card-title {
+        font-family: var(--mc-font);
+        font-size: 1.5rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: #ffc998;
+        margin: 0;
+      }
+
+      .game-card-subtitle {
+        color: #d4b89a;
+        font-size: 0.95rem;
+        opacity: 0.85;
+      }
+
+      .map-section {
+        background: 
+          linear-gradient(180deg, #1a1410 0%, #0a0604 100%);
+        padding: 5rem 2rem;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .map-section::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: 
+          repeating-linear-gradient(0deg, rgba(94, 242, 150, 0.03) 0px, transparent 1px, transparent 16px, rgba(94, 242, 150, 0.03) 17px),
+          repeating-linear-gradient(90deg, rgba(94, 242, 150, 0.03) 0px, transparent 1px, transparent 16px, rgba(94, 242, 150, 0.03) 17px);
+        opacity: 0.3;
+        pointer-events: none;
+      }
+
+      .map-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        width: 100%;
+        position: relative;
+        z-index: 1;
+      }
+
+      .map-header {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .map-title {
+        font-family: var(--mc-font);
+        font-size: clamp(2.5rem, 8vw, 4.5rem);
+        letter-spacing: 10px;
+        text-transform: uppercase;
+        color: #ffffff;
+        text-shadow: 
+          0 0 20px rgba(94, 242, 150, 0.4),
+          0 4px 30px rgba(255, 140, 60, 0.3),
+          2px 2px 0 rgba(0, 0, 0, 0.8);
+        margin-bottom: 1rem;
+      }
+
+      .map-subtitle {
+        color: #d4b89a;
+        font-size: 1.1rem;
+        letter-spacing: 2px;
+      }
+
+      .map-canvas {
+        background: 
+          linear-gradient(135deg, 
+            rgba(40, 55, 30, 0.3) 0%,
+            rgba(30, 40, 45, 0.3) 50%,
+            rgba(50, 35, 25, 0.3) 100%
+          );
+        border: 3px solid rgba(94, 242, 150, 0.3);
+        border-radius: 1.5rem;
+        padding: 3rem;
+        position: relative;
+        box-shadow: 
+          0 0 50px rgba(94, 242, 150, 0.1),
+          inset 0 0 100px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+      }
+
+      .map-canvas::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: 
+          repeating-linear-gradient(0deg, transparent 0px, rgba(0, 0, 0, 0.1) 1px, transparent 2px, transparent 32px),
+          repeating-linear-gradient(90deg, transparent 0px, rgba(0, 0, 0, 0.1) 1px, transparent 2px, transparent 32px);
+        border-radius: 1.5rem;
+        pointer-events: none;
+      }
+
+      .map-legend {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+      }
+
+      .legend-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+      }
+
+      .legend-icon {
+        font-size: 1.5rem;
+      }
+
+      .map-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        position: relative;
+      }
+
+      .location-marker {
+        background: rgba(20, 25, 30, 0.85);
+        border: 2px solid rgba(94, 242, 150, 0.4);
+        border-radius: 1.2rem;
+        padding: 1.5rem;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      }
+
+      .location-marker::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(94, 242, 150, 0.1) 0%, transparent 70%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .location-marker:hover::before {
+        opacity: 1;
+      }
+
+      .location-marker:hover {
+        transform: translateY(-8px) scale(1.02);
+        border-color: rgba(94, 242, 150, 0.8);
+        box-shadow: 
+          0 8px 30px rgba(94, 242, 150, 0.3),
+          0 0 40px rgba(94, 242, 150, 0.2);
+      }
+
+      .location-marker.legendary {
+        border-color: rgba(255, 200, 100, 0.5);
+      }
+
+      .location-marker.legendary:hover {
+        border-color: rgba(255, 200, 100, 0.9);
+        box-shadow: 
+          0 8px 30px rgba(255, 140, 60, 0.4),
+          0 0 40px rgba(255, 140, 60, 0.3);
+      }
+
+      .location-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .location-icon {
+        font-size: 2.5rem;
+        filter: drop-shadow(0 0 15px currentColor);
+        animation: float 3s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%, 100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-8px);
+        }
+      }
+
+      .location-info h3 {
+        font-family: var(--mc-font);
+        color: var(--emerald);
+        font-size: 1.5rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        text-shadow: 0 0 10px rgba(94, 242, 150, 0.5);
+      }
+
+      .location-marker.legendary .location-info h3 {
+        color: var(--copper);
+        text-shadow: 0 0 10px rgba(255, 140, 60, 0.5);
+      }
+
+      .location-coords {
+        font-family: 'Courier New', monospace;
+        font-size: 0.8rem;
+        color: #8fb3a0;
+        letter-spacing: 1px;
+      }
+
+      .location-body {
+        position: relative;
+        z-index: 1;
+      }
+
+      .location-year {
+        display: inline-block;
+        padding: 0.3rem 0.8rem;
+        background: rgba(94, 242, 150, 0.1);
+        border: 1px solid rgba(94, 242, 150, 0.3);
+        border-radius: 999px;
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--emerald);
+        margin-bottom: 0.75rem;
+      }
+
+      .location-marker.legendary .location-year {
+        background: rgba(255, 200, 100, 0.1);
+        border-color: rgba(255, 200, 100, 0.3);
+        color: var(--copper);
+      }
+
+      .location-desc {
+        color: #d4d8e0;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+      }
+
+      .location-stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .stat-badge {
+        padding: 0.4rem 0.8rem;
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 0.5rem;
+        font-size: 0.85rem;
+        color: #b8c5d0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .coordinates-display {
+        margin-top: 3rem;
+        padding: 2rem;
+        background: rgba(0, 0, 0, 0.5);
+        border: 2px solid rgba(94, 242, 150, 0.2);
+        border-radius: 1rem;
+        text-align: center;
+      }
+
+      .coordinates-title {
+        font-family: var(--mc-font);
+        color: var(--emerald);
+        font-size: 1.3rem;
+        letter-spacing: 3px;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+      }
+
+      .coordinates-text {
+        font-family: 'Courier New', monospace;
+        color: #a8d8b8;
+        font-size: 1.1rem;
+        letter-spacing: 2px;
+        line-height: 2;
+      }
+
+      footer {
+        display: none;
+      }
+
+      @media (max-width: 600px) {
+        nav ul {
+          display: none;
+        }
+
+        .cta-group {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .map-canvas {
+          padding: 1.5rem;
+        }
+
+        .map-legend {
+          gap: 0.75rem;
+        }
+
+        .legend-item {
+          font-size: 0.8rem;
+          padding: 0.4rem 0.75rem;
+        }
+
+        .map-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .location-marker {
+          padding: 1.25rem;
+        }
+
+        .location-icon {
+          font-size: 2rem;
+        }
+
+        .location-info h3 {
+          font-size: 1.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="hero snap">
+        <div class="hero-inner">
+          <p class="badge">Legacy Gamer · 2011 - ∞</p>
+          <h1 class="hero-title">Guanuby</h1>
+          <p class="hero-subtitle">
+            Fundador, primera camada de jugadores de los mejores juegos del siglo XXI
+          </p>
+          <p class="hero-description">
+            Vanguardista de Minecraft desde sus primeras versiones, estratega de Battlefield 4, Smite y gran jugador de GTA V desde su beta en Playstation 3. Guanuby vivió y seguirá viviendo grandes acontecimientos en el Gaming.
+          </p>
+          <div class="cta-group">
+            <a class="cta primary" href="#galeria">Ver galería</a>
+            <a class="cta" href="#mapa">Explorar mapa</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="galeria" class="gallery-section">
+        <div class="gallery-grid">
+          <article class="game-card">
+            <img src="./1.png" alt="Hunger Games Minecraft" />
+            <div class="game-card-content">
+              <h3 class="game-card-title">Hunger Games</h3>
+            </div>
+          </article>
+
+          <article class="game-card">
+            <img src="./3.png" alt="Survival Minecraft" />
+            <div class="game-card-content">
+              <h3 class="game-card-title">Survival</h3>
+            </div>
+          </article>
+
+          <article class="game-card">
+            <img src="./dos.png" alt="Skywars Minecraft" />
+            <div class="game-card-content">
+              <h3 class="game-card-title">SkyWars</h3>
+            </div>
+          </article>
+
+          <article class="game-card">
+            <img src="./4.png" alt="Battlefield 4" />
+            <div class="game-card-content">
+              <h3 class="game-card-title">Battlefield 4</h3>
+            </div>
+          </article>
+
+          <article class="game-card">
+            <img src="./5.png" alt="Smite" />
+            <div class="game-card-content">
+              <h3 class="game-card-title">Smite</h3>
+            </div>
+          </article>
+
+          <article class="game-card">
+            <img src="./6.png" alt="GTA V" />
+            <div class="game-card-content">
+              <h3 class="game-card-title">GTA V</h3>
+            </div>
+          </article>
+
+          <article class="game-card">
+            <img src="7.png" alt="Fall Guys" />
+            <div class="game-card-content">
+              <h3 class="game-card-title">Fall Guys</h3>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="mapa" class="map-section">
+        <div class="map-container">
+          <div class="map-header">
+            <h2 class="map-title">Mapa de Aventuras</h2>
+            <p class="map-subtitle">Los territorios legendarios donde Guanuby forjó su legado</p>
+          </div>
+
+          <div class="map-canvas">
+            <div class="map-legend">
+              <div class="legend-item">
+                <span class="legend-icon">🏰</span>
+                <span>Servidor Mítico</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-icon">⚔️</span>
+                <span>Campo de Batalla</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-icon">🌍</span>
+                <span>Mundo Survival</span>
+              </div>
+              <div class="legend-item">
+                <span class="legend-icon">🏆</span>
+                <span>Victoria Épica</span>
+              </div>
+            </div>
+
+            <div class="map-grid">
+              <article class="location-marker legendary">
+                <div class="location-header">
+                  <div class="location-icon">🏰</div>
+                  <div class="location-info">
+                    <h3>MCSG</h3>
+                    <span class="location-coords">X: 2011 · Z: Legacy</span>
+                  </div>
+                </div>
+                <div class="location-body">
+                  <span class="location-year">2011-∞</span>
+                  <p class="location-desc">
+                    El servidor donde todo comenzó. Infinitas noches dominando Hunger Games y SkyWars. Aquí nació la leyenda.
+                  </p>
+                  <div class="location-stats">
+                    <span class="stat-badge">🏹 2000+ Kills</span>
+                    <span class="stat-badge">👑 Top 100</span>
+                    <span class="stat-badge">⭐ Level 89</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="location-marker">
+                <div class="location-header">
+                  <div class="location-icon">🌍</div>
+                  <div class="location-info">
+                    <h3>Mundo Survival</h3>
+                    <span class="location-coords">X: 42069 · Z: -13337</span>
+                  </div>
+                </div>
+                <div class="location-body">
+                  <span class="location-year">2011-∞</span>
+                  <p class="location-desc">
+                    Modalidad principal donde comenzó la gran aventura. Granjas automáticas, castillos épicos y secretos bajo tierra.
+                  </p>
+                  <div class="location-stats">
+                    <span class="stat-badge">🏗️ 50+ Edificios</span>
+                    <span class="stat-badge">💎 Full Diamond</span>
+                    <span class="stat-badge">🐉 Ender Dragon x3</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="location-marker legendary">
+                <div class="location-header">
+                  <div class="location-icon">⚔️</div>
+                  <div class="location-info">
+                    <h3>Battlefield 4</h3>
+                    <span class="location-coords">Shanghai · Paracel Storm</span>
+                  </div>
+                </div>
+                <div class="location-body">
+                  <span class="location-year">2013-∞</span>
+                  <p class="location-desc">
+                    Estratega letal en los mapas más icónicos. Cada rascacielos derribado, cada helicóptero abatido es historia pura.
+                  </p>
+                  <div class="location-stats">
+                    <span class="stat-badge">💀 K/D 2.8</span>
+                    <span class="stat-badge">🎖️ Coronel</span>
+                    <span class="stat-badge">🔫 MVP x250</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="location-marker">
+                <div class="location-header">
+                  <div class="location-icon">🏺</div>
+                  <div class="location-info">
+                    <h3>SMITE Arena</h3>
+                    <span class="location-coords">Olympus · Valhalla</span>
+                  </div>
+                </div>
+                <div class="location-body">
+                  <span class="location-year">2014-∞</span>
+                  <p class="location-desc">
+                    Maestro de los dioses. Cada partida una obra maestra de estrategia y timing perfecto con los ultimates.
+                  </p>
+                  <div class="location-stats">
+                    <span class="stat-badge">⚡ 30+ Dioses Maestría</span>
+                    <span class="stat-badge">🏅 Platino II</span>
+                    <span class="stat-badge">🎭 Main Support</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="location-marker legendary">
+                <div class="location-header">
+                  <div class="location-icon">🚗</div>
+                  <div class="location-info">
+                    <h3>Los Santos</h3>
+                    <span class="location-coords">GTA V · PS3 Beta</span>
+                  </div>
+                </div>
+                <div class="location-body">
+                  <span class="location-year">2013-∞</span>
+                  <p class="location-desc">
+                    Pionero desde la beta de PS3. Las calles de Los Santos conocen su nombre. Cada atraco, cada carrera, pura adrenalina.
+                  </p>
+                  <div class="location-stats">
+                    <span class="stat-badge">💰 Beta Tester</span>
+                    <span class="stat-badge">🏎️ 500+ Carreras</span>
+                    <span class="stat-badge">💸 $100M+</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="location-marker legendary">
+                <div class="location-header">
+                  <div class="location-icon">🎭</div>
+                  <div class="location-info">
+                    <h3>FiveM Roleplay</h3>
+                    <span class="location-coords">Los Santos · Roleplay</span>
+                  </div>
+                </div>
+                <div class="location-body">
+                  <span class="location-year">2020-∞</span>
+                  <p class="location-desc">
+                    ImperialRP fue el hogar de incontables aventuras junto a los amigos. Risas infinitas, historias épicas y momentos que quedan grabados para siempre.
+                  </p>
+                  <div class="location-stats">
+                    <span class="stat-badge">🎬 100+ Horas RP</span>
+                    <span class="stat-badge">👮 Facción Elite</span>
+                    <span class="stat-badge">🎯 Whitelist</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="location-marker">
+                <div class="location-header">
+                  <div class="location-icon">👑</div>
+                  <div class="location-info">
+                    <h3>Fall Guys</h3>
+                    <span class="location-coords">Blunderdome · Chaos</span>
+                  </div>
+                </div>
+                <div class="location-body">
+                  <span class="location-year">2020-∞</span>
+                  <p class="location-desc">
+                    Juego pandémico que sirvió para pasar tiempo con amigos y reírse de las caídas épicas. Pura diversión y caos en cada ronda.
+                  </p>
+                  <div class="location-stats">
+                    <span class="stat-badge">😂 Risas infinitas</span>
+                    <span class="stat-badge">🏆 20+ Coronas</span>
+                    <span class="stat-badge">🤪 Fails épicos</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="location-marker">
+                <div class="location-header">
+                  <div class="location-icon">⚽</div>
+                  <div class="location-info">
+                    <h3>FIFA</h3>
+                    <span class="location-coords">Pro Clubs · Stadium</span>
+                  </div>
+                </div>
+                <div class="location-body">
+                  <span class="location-year">2020-∞</span>
+                  <p class="location-desc">
+                    Fútbol, risas y clubes pro con amigos. Cada partido una batalla, cada gol una celebración épica. Trabajo en equipo en su máxima expresión.
+                  </p>
+                  <div class="location-stats">
+                    <span class="stat-badge">⚽ 500+ Goles</span>
+                    <span class="stat-badge">🏟️ Pro Clubs</span>
+                    <span class="stat-badge">🎮 División 1</span>
+                  </div>
+                </div>
+              </article>
+
+              <article class="location-marker legendary">
+                <div class="location-header">
+                  <div class="location-icon">🌟</div>
+                  <div class="location-info">
+                    <h3>Hytale</h3>
+                    <span class="location-coords">X: ??? · Z: Future</span>
+                  </div>
+                </div>
+                <div class="location-body">
+                  <span class="location-year">2026-∞</span>
+                  <p class="location-desc">
+                    El próximo capítulo de la leyenda. Un nuevo mundo por explorar, nuevas aventuras por vivir. El legado continúa en horizontes inexplorados.
+                  </p>
+                  <div class="location-stats">
+                    <span class="stat-badge">🔮 Coming Soon</span>
+                    <span class="stat-badge">🎮 Day One</span>
+                    <span class="stat-badge">⚡ Hype Max</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
+
